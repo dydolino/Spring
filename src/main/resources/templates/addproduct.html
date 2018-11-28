@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+          integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <meta charset="UTF-8">
+    <title>Dodaj produkt</title>
+</head>
+<body>
+
+<h1 style="margin: auto">Dodaj nowy </h1>
+
+<form th:action="@{/save}" th:object="${product}" method="post" style="width: 200px;margin: auto" >
+
+    <div class="form-group">
+        <label for="name">Nazwa produktu</label>
+        <input type="text" class="form-control" id="name" placeholder="Nazwa produktu" th:field="*{name}">
+    </div>
+
+    <div class="form-group">
+        <label for="price">Cena</label>
+        <input type="number" class="form-control" id="price" placeholder="Cena" th:field="*{price}">
+    </div>
+
+    <div class="form-group">
+        <label for="category">Kategoria</label>
+        <input type="text" class="form-control" id="category" placeholder="Kategoria" th:field="*{category}">
+    </div>
+    <button type="submit" class="btn btn-primary">Dodaj</button>
+
+</form>
+
+</body>
+</html>
