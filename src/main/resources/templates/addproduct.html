@@ -8,19 +8,42 @@
 </head>
 <body>
 
-<h1 style="margin: auto">Dodaj nowy </h1>
+<h1 style="margin: auto"> Dodaj nowy produkt  </h1>
 
-<form th:action="@{/save}" th:object="${product}" method="post" style="width: 200px;margin: auto" >
+
+<form class="was-validated" th:action="@{/save}" th:object="${product}" method="post" style="width: 300px;margin: auto">
 
     <div class="form-group">
         <label for="name">Nazwa produktu</label>
-        <input type="text" class="form-control" id="name" placeholder="Nazwa produktu" th:field="*{name}">
+        <input type="text" class="form-control" id="name" placeholder="Nazwa produktu" th:field="*{name}" required>
+        <small id="nameHelp" class="form-text text-muted">
+            Nazwa produktu, który został zakupiony.
+        </small>
+        <div class="invalid-feedback">Podaj nazwę</div>
     </div>
 
     <div class="form-group">
         <label for="price">Cena</label>
-        <input type="number" class="form-control" id="price" placeholder="Cena" th:field="*{price}">
+        <input type="text" class="form-control" id="price" placeholder="Cena" th:field="*{price}" required>
+        <small id="priceHelp" class="form-text text-muted">
+            Cena zakupionego produktu.
+        </small>
+        <div class="invalid-feedback">Podaj cenę</div>
     </div>
+
+    <div class="form-group">
+        <label for="price">Kategoria</label>
+    <select class="custom-select" required>
+        <option value="">Kliknij by wybrać kategorię</option>
+        <option value="1">One</option>
+        <option value="2">Two</option>
+        <option value="3">Three</option>
+    </select>
+        <small id="categoryHelp" class="form-text text-muted">
+            Kategoria produktu.
+        </small>
+        <div class="invalid-feedback">Wybierz kategorię</div>
+        </div>
 
     <button type="submit" class="btn btn-primary">Dodaj</button>
 
