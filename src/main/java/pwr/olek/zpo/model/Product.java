@@ -9,9 +9,15 @@ public class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @Column
     private String name;
+    @Column(name = "price")
     private double price;
-    private String category;
+    @ManyToOne
+    private Category category;
+
+
+
 
 
 
@@ -23,11 +29,6 @@ public class Product {
         this.price = price;
     }
 
-    public Product(String name, double price, String category) {
-        this.name = name;
-        this.price = price;
-        this.category = category;
-    }
 
 
     public String getName() {
@@ -53,11 +54,12 @@ public class Product {
     public void setId(Long id) {
         this.id = id;
     }
-    public String getCategory() {
+
+    public Category getCategory() {
         return category;
     }
 
-    public void setCategory(String category) {
+    public void setCategory(Category category) {
         this.category = category;
     }
 }

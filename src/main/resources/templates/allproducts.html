@@ -13,7 +13,6 @@
     <tr>
         <th>Nazwa produktu</th>
         <th>Cena</th>
-        <th>Kategoria</th>
 
     </tr>
     </thead>
@@ -21,7 +20,6 @@
     <tr th:each="product: ${products}">
         <td th:text="${product.name}"></td>
         <td th:text="${product.price}"></td>
-        <td th:text="${product.category}"></td>
     </tr>
     </tbody>
 </table>
