@@ -5,16 +5,24 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
+import pwr.olek.zpo.model.Category;
 import pwr.olek.zpo.model.Product;
+import pwr.olek.zpo.repository.CategoryRepository;
 import pwr.olek.zpo.repository.ProductRepository;
+import pwr.olek.zpo.service.ProductService;
 
 import java.util.List;
+import java.util.Optional;
 
 @Controller
 public class ProductController {
 
     private ProductRepository productRepository;
+    private ProductService productService;
+    private CategoryRepository categoryRepository;
 
     @Autowired
     public ProductController(ProductRepository productRepository) {
@@ -22,23 +30,55 @@ public class ProductController {
 
     }
 
+    @GetMapping("/")
+    public String main() {
+        return "main";
+    }
+
     @GetMapping("/addProduct")
-    public String addForm(Model model){
-        model.addAttribute("product",new Product());
+    public String addForm(Model model) {
+        model.addAttribute("product", new Product());
+       // List<Category> allCategories = categoryRepository.findAll();
+        //model.addAttribute("categories", allCategories);
         return "addproduct";
 
     }
 
     @PostMapping("/save")
-    public String addProduct(Product product){
+    public String addProduct(Product product) {
         productRepository.save(product);
         return "allproducts";
     }
 
     @GetMapping("/allproducts")
-    public String allProducts(Model model){
-        List<Product> allProducts=productRepository.findAll();
-        model.addAttribute("products",allProducts);
+    public String allProducts(Model model) {
+        List<Product> allProducts = productRepository.findAll();
+        model.addAttribute("products", allProducts);
+
         return "allproducts";
     }
+
+    @GetMapping("/product/{id}")
+    public String getProduct(Model model, @PathVariable Long id) {
+        Optional<Product> productById = productRepository.findById(id);
+        productById.ifPresent(product -> model.addAttribute("product",product));
+        return productById.map(product -> "singleProduct").orElse("noproduct");
+
+    }
+
+    @GetMapping("/delete/{id}")
+    @ResponseBody
+    public String delete(@PathVariable Long id) {
+        productRepository.deleteById(id);
+        return "Usunieto produkt " + id;
+    }
+
+    @GetMapping("/update")
+    public String update(){
+
+        productService.update(2L,"Łoś");
+        return "";
+    }
+
+
 }
