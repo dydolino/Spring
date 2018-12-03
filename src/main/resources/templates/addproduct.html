@@ -8,7 +8,7 @@
 </head>
 <body>
 
-<h1 style="margin: auto"> Dodaj nowy produkt  </h1>
+
 
 
 <form class="was-validated" th:action="@{/save}" th:object="${product}" method="post" style="width: 300px;margin: auto">
@@ -33,11 +33,14 @@
 
     <div class="form-group">
         <label for="price">Kategoria</label>
-    <select class="custom-select" required>
+
+    <select th:field="*{category}" class="custom-select"  required>
         <option value="">Kliknij by wybrać kategorię</option>
-        <option value="1">One</option>
-        <option value="2">Two</option>
-        <option value="3">Three</option>
+        <option th:each="categoria : ${categories}"
+                th:value="${categoria.id}"
+                th:text="${categoria.name}">
+        </option>
+
     </select>
         <small id="categoryHelp" class="form-text text-muted">
             Kategoria produktu.

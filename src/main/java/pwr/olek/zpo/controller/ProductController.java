@@ -25,10 +25,11 @@ public class ProductController {
     private CategoryRepository categoryRepository;
 
     @Autowired
-    public ProductController(ProductRepository productRepository) {
+    public ProductController(ProductRepository productRepository, CategoryRepository categoryRepository) {
         this.productRepository = productRepository;
-
+        this.categoryRepository = categoryRepository;
     }
+
 
     @GetMapping("/")
     public String main() {
@@ -38,8 +39,8 @@ public class ProductController {
     @GetMapping("/addProduct")
     public String addForm(Model model) {
         model.addAttribute("product", new Product());
-       // List<Category> allCategories = categoryRepository.findAll();
-        //model.addAttribute("categories", allCategories);
+        List<Category> allCategories = categoryRepository.findAll();
+        model.addAttribute("categories", allCategories);
         return "addproduct";
 
     }
@@ -47,7 +48,7 @@ public class ProductController {
     @PostMapping("/save")
     public String addProduct(Product product) {
         productRepository.save(product);
-        return "allproducts";
+        return "main";
     }
 
     @GetMapping("/allproducts")
@@ -61,7 +62,7 @@ public class ProductController {
     @GetMapping("/product/{id}")
     public String getProduct(Model model, @PathVariable Long id) {
         Optional<Product> productById = productRepository.findById(id);
-        productById.ifPresent(product -> model.addAttribute("product",product));
+        productById.ifPresent(product -> model.addAttribute("product", product));
         return productById.map(product -> "singleProduct").orElse("noproduct");
 
     }
@@ -74,9 +75,9 @@ public class ProductController {
     }
 
     @GetMapping("/update")
-    public String update(){
+    public String update() {
 
-        productService.update(2L,"Łoś");
+        productService.update(2L, "Łoś");
         return "";
     }
 
