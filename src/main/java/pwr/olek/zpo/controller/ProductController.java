@@ -87,13 +87,20 @@ public class ProductController {
     }
 
     @PostMapping("/search")
-    public String search(@RequestParam String string, Model model ) {
+    public String search(@RequestParam String string, @RequestParam String query, Model model ) {
 
-        List<Product> allProducts = productRepository.findByNameContainsIgnoreCase(string);
-        if (!allProducts.isEmpty()){
-            model.addAttribute("products",allProducts);
+        if (query.equals("name")){
+            List<Product> allProducts = productRepository.findByNameContainsIgnoreCase(string);
+            if (!allProducts.isEmpty()){
+                model.addAttribute("products",allProducts);
+            }
         }
-        else return "allproducts";
+        else {
+            List<Product> allProducts = productRepository.findByCategoryNameContainsIgnoreCase(string);
+            if (!allProducts.isEmpty()){
+                model.addAttribute("products",allProducts);
+            }
+        }
 
         return "searchproduct";
     }
