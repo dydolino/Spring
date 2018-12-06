@@ -28,6 +28,22 @@
                 <a class="nav-link" href="/addCategory">Dodaj kategorię</a>
             </li>
         </ul>
+        <form name="update" th:action="@{/update}" method="post" class="form-inline my-2 my-lg-0" style="margin: auto">
+
+            <select th:name="field" class="custom-select mr-sm-2" id="field">
+                <option selected>Sortuj:</option>
+                <option th:value="name" >Nazwach produktów</option>
+                <option th:value="category"  >Kategoriach produktów</option>
+            </select>
+
+            <select th:name="order" class="custom-select mr-sm-2" id="order">
+                <option selected>Jak?</option>
+                <option th:value="ASC" >Rosnąco</option>
+                <option th:value="DESC"  >Malejąco</option>
+            </select>
+            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Sortuj</button>
+        </form>
+
         <form name="search" th:action="@{/search}" method="post" class="form-inline my-2 my-lg-0">
 
             <select th:name="query" class="custom-select mr-sm-2" id="inlineFormCustomSelect">
@@ -64,8 +80,5 @@
     </tr>
     </tbody>
 </table>
-
-
-
 </body>
 </html>

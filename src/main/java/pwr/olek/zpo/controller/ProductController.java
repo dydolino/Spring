@@ -79,32 +79,55 @@ public class ProductController {
         return "redirect:/allproducts";
     }
 
-    @GetMapping("/update")
-    public String update() {
+    @PostMapping("/update")
+    public String update(@RequestParam("field") String field, @RequestParam("order") String order, Model model) {
 
-        productService.update(2L, "Łoś");
-        return "";
+        List<Product> products = productRepository.findAll();
+
+        if (field.equals("category")) {
+            if (order.equals("ASC")) {
+
+                products = productRepository.findByOrderByCategoryAsc();
+            }
+            if (order.equals("DESC")) {
+
+                products = productRepository.findByOrderByCategoryDesc();
+            }
+        }
+        if (field.equals("name")) {
+            if (order.equals("ASC")) {
+
+                products = productRepository.findByOrderByNameAsc();
+            }
+
+            if (order.equals("DESC")) {
+
+                products = productRepository.findByOrderByNameDesc();
+            }
+        }
+
+
+        model.addAttribute("products", products);
+        return "allproducts";
     }
 
     @PostMapping("/search")
-    public String search(@RequestParam String string, @RequestParam String query, Model model ) {
+    public String search(@RequestParam String string, @RequestParam String query, Model model) {
 
-        if (query.equals("name")){
+        if (query.equals("name")) {
             List<Product> allProducts = productRepository.findByNameContainsIgnoreCase(string);
-            if (!allProducts.isEmpty()){
-                model.addAttribute("products",allProducts);
+            if (!allProducts.isEmpty()) {
+                model.addAttribute("products", allProducts);
             }
-        }
-        else {
+        } else {
             List<Product> allProducts = productRepository.findByCategoryNameContainsIgnoreCase(string);
-            if (!allProducts.isEmpty()){
-                model.addAttribute("products",allProducts);
+            if (!allProducts.isEmpty()) {
+                model.addAttribute("products", allProducts);
             }
         }
 
         return "searchproduct";
     }
-
 
 
 }
