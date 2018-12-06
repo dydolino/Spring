@@ -3,7 +3,9 @@ package pwr.olek.zpo.repository;
 import org.springframework.data.jpa.repository.JpaRepository;
 import pwr.olek.zpo.model.Product;
 
+import java.util.List;
+
 public interface ProductRepository extends JpaRepository<Product, Long> {
 
-
+    List<Product> findByNameContainsIgnoreCase(String string);
 }

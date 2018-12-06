@@ -7,6 +7,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import pwr.olek.zpo.model.Category;
 import pwr.olek.zpo.model.Product;
 import pwr.olek.zpo.repository.CategoryRepository;
@@ -84,6 +85,19 @@ public class ProductController {
         productService.update(2L, "Łoś");
         return "";
     }
+
+    @PostMapping("/search")
+    public String search(@RequestParam String string, Model model ) {
+
+        List<Product> allProducts = productRepository.findByNameContainsIgnoreCase(string);
+        if (!allProducts.isEmpty()){
+            model.addAttribute("products",allProducts);
+        }
+        else return "allproducts";
+
+        return "searchproduct";
+    }
+
 
 
 }
