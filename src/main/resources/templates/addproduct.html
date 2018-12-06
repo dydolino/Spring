@@ -9,8 +9,6 @@
 <body>
 
 
-
-
 <form class="was-validated" th:action="@{/save}" th:object="${product}" method="post" style="width: 300px;margin: auto">
 
     <div class="form-group">
@@ -34,21 +32,21 @@
     <div class="form-group">
         <label for="price">Kategoria</label>
 
-    <select th:field="*{category}" class="custom-select"  required>
-        <option value="">Kliknij by wybrać kategorię</option>
-        <option th:each="categoria : ${categories}"
-                th:value="${categoria.id}"
-                th:text="${categoria.name}">
-        </option>
+        <select th:field="*{category}" class="custom-select" required>
+            <option value="">Kliknij by wybrać kategorię</option>
+            <option th:each="categoria : ${categories}"
+                    th:value="${categoria.id}"
+                    th:text="${categoria.name}">
+            </option>
 
-    </select>
+        </select>
         <small id="categoryHelp" class="form-text text-muted">
             Kategoria produktu.
         </small>
         <div class="invalid-feedback">Wybierz kategorię</div>
-        </div>
+    </div>
 
-    <button type="submit" class="btn btn-primary" >Dodaj</button>
+    <button type="submit" class="btn btn-primary">Dodaj</button>
 
 </form>
 

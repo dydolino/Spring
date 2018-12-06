@@ -17,10 +17,10 @@ public class ProductService {
     }
 
     @Transactional
-    public void update(Long id, String name){
+    public void update(Long id, String name) {
 
         Optional<Product> byId = productRepository.findById(id);
-        Product product=byId.get();
+        Product product = byId.get();
         product.setName(name);
     }
 }
