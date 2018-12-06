@@ -8,13 +8,14 @@
 </head>
 <body>
 
-<table class="table table-striped" style="width: 500px;margin:auto">
+<table class="table table-striped" style="width: 600px;margin:auto">
     <thead>
     <tr style="margin: auto">
         <th>Nazwa produktu</th>
         <th>Cena</th>
         <th>Kategoria</th>
-        <th>Akcje</th>
+        <th>Usuń</th>
+        <th>Modyfikuj</th>
 
     </tr>
     </thead>
@@ -23,9 +24,8 @@
         <td th:text="${product.name}"></td>
         <td th:text="${product.price}"></td>
         <td th:text="${product.category.name}"></td>
-        <td class="nav-item">
-            <a class="nav-link" href="/delete/">Usuń</a>
-        </td>
+        <td><a th:href="${'/delete/' + product.id}" class="btn btn-danger">Usuń</a></td>
+        <td><a th:href="${'/edit/' + product.id}" class="btn btn-primary">Modyfikuj</a></td>
 
     </tr>
     </tbody>

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+          integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+
+    <meta charset="UTF-8">
+    <title th:text="${product.name}">Title</title>
+</head>
+<body>
+
+<form th:action="@{/save}" th:object="${product}" method="post" style="margin: auto; width: 400px">
+    <input type="hidden" th:field="*{id}">
+    <div class="form-group row">
+        <label for="name" class="col-sm-2 col-form-label">Nazwa</label>
+        <div class="col-sm-10">
+            <input type="text" class="form-control" id="name" th:field="*{name}" placeholder="Nazwa">
+        </div>
+    </div>
+
+    <div class="form-group row">
+        <label for="price" class="col-sm-2 col-form-label">Cena</label>
+        <div class="col-sm-10">
+            <input type="number" class="form-control" id="price" th:field="*{price}" placeholder="Cena">
+        </div>
+
+    </div><div class="form-group row">
+        <label for="price" class="col-sm-2 col-form-label">Cena</label>
+        <div class="col-sm-10">
+            <select th:field="*{category}" class="custom-select"  required>
+                <option value="">Kliknij by wybrać kategorię</option>
+                <option th:each="categoria : ${categories}"
+                        th:value="${categoria.id}"
+                        th:text="${categoria.name}">
+                </option>
+            </select>
+        </div>
+    </div>
+
+    <div class="form-group row">
+        <div class="col-sm-10">
+            <button type="submit" class="btn btn-primary">Zapisz</button>
+        </div>
+    </div>
+</form>
+
+</body>
+</html>

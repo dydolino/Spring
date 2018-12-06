@@ -7,7 +7,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 import pwr.olek.zpo.model.Category;
 import pwr.olek.zpo.model.Product;
 import pwr.olek.zpo.repository.CategoryRepository;
@@ -48,7 +47,7 @@ public class ProductController {
     @PostMapping("/save")
     public String addProduct(Product product) {
         productRepository.save(product);
-        return "main";
+        return "redirect:/allproducts";
     }
 
     @GetMapping("/allproducts")
@@ -59,19 +58,24 @@ public class ProductController {
         return "allproducts";
     }
 
-    @GetMapping("/product/{id}")
-    public String getProduct(Model model, @PathVariable Long id) {
-        Optional<Product> productById = productRepository.findById(id);
-        productById.ifPresent(product -> model.addAttribute("product", product));
-        return productById.map(product -> "singleProduct").orElse("noproduct");
+    @GetMapping("/edit/{id}")
+    public String singleProduct(Model model, @PathVariable Long id) {
 
+        List<Category> allCategories = categoryRepository.findAll();
+        model.addAttribute("categories", allCategories);
+        Optional<Product> productByID = productRepository.findById(id);
+        if (productByID.isPresent()) {
+
+            model.addAttribute("product", productByID.get());
+        }
+
+        return "single";
     }
 
     @GetMapping("/delete/{id}")
-    @ResponseBody
     public String delete(@PathVariable Long id) {
         productRepository.deleteById(id);
-        return "Usunieto produkt " + id;
+        return "redirect:/allproducts";
     }
 
     @GetMapping("/update")
