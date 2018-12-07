@@ -79,33 +79,55 @@ public class ProductController {
         return "redirect:/allproducts";
     }
 
-    @PostMapping("/update")
-    public String update(@RequestParam("field") String field, @RequestParam("order") String order, Model model) {
+    @GetMapping("/name/asc")
+    public String sortByNameASC(Model model) {
 
-        List<Product> products = productRepository.findAll();
+        List<Product> products = productRepository.findByOrderByNameAsc();
 
-        if (field.equals("category")) {
-            if (order.equals("ASC")) {
+        model.addAttribute("products", products);
+        return "allproducts";
+    }
 
-                products = productRepository.findByOrderByCategoryAsc();
-            }
-            if (order.equals("DESC")) {
+    @GetMapping("/name/desc")
+    public String sortByNameDESC(Model model) {
 
-                products = productRepository.findByOrderByCategoryDesc();
-            }
-        }
-        if (field.equals("name")) {
-            if (order.equals("ASC")) {
+        List<Product> products = productRepository.findByOrderByNameDesc();
 
-                products = productRepository.findByOrderByNameAsc();
-            }
+        model.addAttribute("products", products);
+        return "allproducts";
+    }
 
-            if (order.equals("DESC")) {
+    @GetMapping("/price/asc")
+    public String sortByPriceASC(Model model) {
 
-                products = productRepository.findByOrderByNameDesc();
-            }
-        }
+        List<Product> products = productRepository.findByOrderByPriceAsc();
 
+        model.addAttribute("products", products);
+        return "allproducts";
+    }
+
+    @GetMapping("/price/desc")
+    public String sortByPriceDESC(Model model) {
+
+        List<Product> products = productRepository.findByOrderByPriceDesc();
+
+        model.addAttribute("products", products);
+        return "allproducts";
+    }
+
+    @GetMapping("/category/asc")
+    public String sortByCategoryASC(Model model) {
+
+        List<Product> products = productRepository.findByOrderByCategoryAsc();
+
+        model.addAttribute("products", products);
+        return "allproducts";
+    }
+
+    @GetMapping("/category/desc")
+    public String sortByCategoryDESC(Model model) {
+
+        List<Product> products = productRepository.findByOrderByCategoryDesc();
 
         model.addAttribute("products", products);
         return "allproducts";

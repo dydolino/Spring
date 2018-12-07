@@ -6,7 +6,7 @@
     <meta charset="UTF-8">
     <title style="margin: auto">Wszystkie produkty</title>
 </head>
-<body>
+<body background="https://images5.alphacoders.com/456/456536.jpg">
 
 
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
@@ -28,21 +28,6 @@
                 <a class="nav-link" href="/addCategory">Dodaj kategorię</a>
             </li>
         </ul>
-        <form name="update" th:action="@{/update}" method="post" class="form-inline my-2 my-lg-0" style="margin: auto">
-
-            <select th:name="field" class="custom-select mr-sm-2" id="field">
-                <option selected>Sortuj:</option>
-                <option th:value="name" >Nazwach produktów</option>
-                <option th:value="category"  >Kategoriach produktów</option>
-            </select>
-
-            <select th:name="order" class="custom-select mr-sm-2" id="order">
-                <option selected>Jak?</option>
-                <option th:value="ASC" >Rosnąco</option>
-                <option th:value="DESC"  >Malejąco</option>
-            </select>
-            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Sortuj</button>
-        </form>
 
         <form name="search" th:action="@{/search}" method="post" class="form-inline my-2 my-lg-0">
 
@@ -58,14 +43,24 @@
     </div>
 </nav>
 
-<table class="table table-striped" style="width: 600px;margin:auto">
+<table class="table table-striped" style="width: 1000px;margin:auto; color: wheat">
     <thead>
     <tr style="margin: auto">
-        <th>Nazwa produktu</th>
-        <th>Cena</th>
-        <th>Kategoria</th>
+        <th>Nazwa produktu
+        <a href="/name/asc" style="-webkit-text-fill-color:yellow ">▲</a>
+        <a href="/name/desc"  style="-webkit-text-fill-color:yellow ">▼</a>
+        </th>
+        <th>Cena
+            <a href="/price/asc"  style="-webkit-text-fill-color:yellow ">▲</a>
+            <a href="/price/desc"  style="-webkit-text-fill-color:yellow ">▼</a>
+        </th>
+        <th>Kategoria
+            <a href="/category/asc"  style="-webkit-text-fill-color:yellow ">▲</a>
+            <a href="/category/desc" style="-webkit-text-fill-color:yellow ">▼</a>
+        </th>
         <th>Usuń</th>
         <th>Modyfikuj</th>
+        <th>Modyfikuj kategorię</th>
 
     </tr>
     </thead>
@@ -76,6 +71,7 @@
         <td th:text="${product.category.name}"></td>
         <td><a th:href="${'/delete/' + product.id}" class="btn btn-danger">Usuń</a></td>
         <td><a th:href="${'/edit/' + product.id}" class="btn btn-primary">Modyfikuj</a></td>
+        <td><a th:href="${'/category/' + product.category.id}" class="btn btn-warning">Modyfikuj</a></td>
 
     </tr>
     </tbody>
