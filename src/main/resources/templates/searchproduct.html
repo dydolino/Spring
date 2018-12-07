@@ -6,7 +6,7 @@
     <meta charset="UTF-8">
     <title >Wyniki wyszukiwania</title>
 </head>
-<body>
+<body background="https://images5.alphacoders.com/456/456536.jpg">
 
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo03"
@@ -44,27 +44,26 @@
     </div>
 </nav>
 
-<table class="table table-striped" style="width: 800px;margin:auto">
+<table class="table table-striped" style="width: 1000px;margin:auto; color: wheat">
     <thead>
-
     <tr style="margin: auto">
         <th>Nazwa produktu
-            <a href="/name/asc" style="-webkit-text-fill-color:black ">▲</a>
-            <a href="/name/desc"  style="-webkit-text-fill-color:black ">▼</a>
+            <a href="/name/asc" style="-webkit-text-fill-color:yellow ">▲</a>
+            <a href="/name/desc"  style="-webkit-text-fill-color:yellow ">▼</a>
         </th>
         <th>Cena
-            <a href="/price/asc"  style="-webkit-text-fill-color:black ">▲</a>
-            <a href="/price/desc"  style="-webkit-text-fill-color:black ">▼</a>
+            <a href="/price/asc"  style="-webkit-text-fill-color:yellow ">▲</a>
+            <a href="/price/desc"  style="-webkit-text-fill-color:yellow ">▼</a>
         </th>
         <th>Kategoria
-            <a href="/category/asc"  style="-webkit-text-fill-color:black ">▲</a>
-            <a href="/category/desc" style="-webkit-text-fill-color:black ">▼</a>
+            <a href="/category/asc"  style="-webkit-text-fill-color:yellow ">▲</a>
+            <a href="/category/desc" style="-webkit-text-fill-color:yellow ">▼</a>
         </th>
         <th>Usuń</th>
         <th>Modyfikuj</th>
+        <th>Modyfikuj kategorię</th>
 
     </tr>
-
     </thead>
     <tbody>
     <tr th:each="product: ${products}">
@@ -73,6 +72,7 @@
         <td th:text="${product.category.name}"></td>
         <td><a th:href="${'/delete/' + product.id}" class="btn btn-danger">Usuń</a></td>
         <td><a th:href="${'/edit/' + product.id}" class="btn btn-primary">Modyfikuj</a></td>
+        <td><a th:href="${'/category/' + product.category.id}" class="btn btn-warning">Modyfikuj</a></td>
 
     </tr>
     </tbody>
